@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Plan de Révision</title>
+
+<!-- PWA / iOS home screen -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#204A40">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Révisions">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/favicon-32.png">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============ TOP BAR ============ -->
+  <div class="top-bar">
+    <div>
+      <div class="eyebrow" id="top-eyebrow">Ton plan de révision</div>
+      <h1 id="top-title">Aujourd'hui</h1>
+    </div>
+    <button class="icon-btn" id="btn-settings" aria-label="Réglages">⚙️</button>
+  </div>
+
+  <!-- ============ VIEW: AUJOURD'HUI ============ -->
+  <section class="view active" id="view-today">
+    <div class="today-hero" id="today-hero"></div>
+    <div id="today-list"></div>
+  </section>
+
+  <!-- ============ VIEW: CALENDRIER ============ -->
+  <section class="view" id="view-calendar">
+    <div class="cal-nav">
+      <button class="icon-btn" id="cal-prev" aria-label="Mois précédent">‹</button>
+      <div class="cal-label" id="cal-label">Mois</div>
+      <button class="icon-btn" id="cal-next" aria-label="Mois suivant">›</button>
+    </div>
+    <div class="cal-grid" id="cal-weekdays"></div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div class="legend" id="cal-legend"></div>
+    <div class="cal-day-detail" id="cal-day-detail"></div>
+  </section>
+
+  <!-- ============ VIEW: COURS ============ -->
+  <section class="view" id="view-courses">
+    <div id="courses-list"></div>
+  </section>
+
+  <!-- ============ VIEW: DÉTAIL D'UN COURS ============ -->
+  <section class="view" id="view-detail">
+    <button class="icon-btn" id="btn-back-detail" aria-label="Retour" style="margin-bottom:10px;">←</button>
+    <div class="detail-header" id="detail-header"></div>
+    <div class="curve-card" id="detail-curve"></div>
+    <div class="section-label">Calendrier des révisions</div>
+    <div id="detail-timeline"></div>
+    <button class="danger-link" id="btn-delete-course">Supprimer ce cours</button>
+  </section>
+
+  <!-- ============ VIEW: RÉGLAGES ============ -->
+  <section class="view" id="view-settings">
+    <button class="icon-btn" id="btn-back-settings" aria-label="Retour" style="margin-bottom:10px;">←</button>
+    <h2 style="font-size:20px; margin-bottom:14px;">Réglages</h2>
+
+    <div class="settings-row">
+      <div>
+        <div class="s-title">Étape à J+60</div>
+        <div class="s-desc">Révision cumulative avant examen, en plus des 5 étapes de base</div>
+      </div>
+      <button class="switch" id="toggle-cumulative"></button>
+    </div>
+
+    <div class="section-label" style="margin-top:26px;">Les 6 modalités</div>
+    <div id="settings-modalities"></div>
+
+    <button class="danger-link" id="btn-reset-data">Réinitialiser toutes les données</button>
+  </section>
+
+  <!-- ============ TAB BAR ============ -->
+  <nav class="tab-bar">
+    <button class="tab-btn active" data-tab="today"><span class="tab-icon">📋</span>Aujourd'hui</button>
+    <button class="tab-btn" data-tab="calendar"><span class="tab-icon">🗓️</span>Calendrier</button>
+    <button class="tab-btn" data-tab="courses"><span class="tab-icon">📚</span>Cours</button>
+  </nav>
+
+  <button class="fab" id="fab-add" aria-label="Ajouter un cours">+</button>
+
+  <!-- ============ SHEET: AJOUTER UN COURS ============ -->
+  <div class="sheet-backdrop" id="sheet-backdrop">
+    <div class="sheet">
+      <div class="sheet-handle"></div>
+      <h2>Nouveau cours</h2>
+      <form id="form-add-course">
+        <div class="field">
+          <label for="f-title">Titre du cours</label>
+          <input id="f-title" type="text" placeholder="Ex. La méiose" required>
+        </div>
+        <div class="field">
+          <label for="f-subject">Matière</label>
+          <input id="f-subject" type="text" list="subject-list" placeholder="Ex. Biologie" required>
+          <datalist id="subject-list"></datalist>
+        </div>
+        <div class="field">
+          <label for="f-date">Date du cours</label>
+          <input id="f-date" type="date" required>
+        </div>
+        <div class="field">
+          <label for="f-notes">Notes (optionnel)</label>
+          <textarea id="f-notes" placeholder="Un point à retenir, une source, une page du poly..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Créer le plan de révision</button>
+        <button type="button" class="btn-secondary" id="btn-cancel-add">Annuler</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
